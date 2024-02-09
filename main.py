@@ -54,3 +54,18 @@ def delete_vacancy_by_title():
         print(f'Вакансия {title} удалена')
     else:
         print(f'Вакансия {title} не найдена')
+
+
+def clear_json():
+    """
+    Метод очищает файл 'vacancies.json', удаляя все сохраненные вакансии.
+    """
+    JsonAgent.clear_json()
+
+
+def show_info_by_title():
+    """
+    Метод выводит в консоль информацию о вакансии, найденной по названию в файле 'vacancies.json'.
+    """
+    title = input('Введите название вакансии для вывода информации: ')
+    JsonAgent.show_info_by_title(title)
