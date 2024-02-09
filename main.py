@@ -69,3 +69,17 @@ def show_info_by_title():
     """
     title = input('Введите название вакансии для вывода информации: ')
     JsonAgent.show_info_by_title(title)
+
+
+def get_vacancies_by_k_words():
+    """
+    Метод выводит в консоль названия вакансий, которые соответствуют заданным ключевым словам.
+    """
+    keywords = input('Введите ключевые слова для поиска: ').split()
+    vacancies = Vacancy.from_json()
+    filtered = VacancyAgent.get_vacancies_by_keywords(vacancies, keywords)
+    if len(filtered) > 0:
+        for title, pay in filtered:
+            print(f"{title}, зарплата: {pay} руб/мес")
+    else:
+        print('Вакансий по таким словам не найдено')
