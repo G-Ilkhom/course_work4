@@ -105,3 +105,11 @@ class JsonAgent:
                     print(vacancy['title'])
         except (FileNotFoundError, json.JSONDecodeError):
             print("Произошла ошибка при загрузке вакансий.")
+
+    @staticmethod
+    def clear_json():
+        """
+        Метод очищает файл vacancies.json, удаляя все вакансии.
+        """
+        with open(FILE, 'w', encoding='utf-8') as f:
+            json.dump([], f, ensure_ascii=False)
