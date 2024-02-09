@@ -83,3 +83,26 @@ def get_vacancies_by_k_words():
             print(f"{title}, зарплата: {pay} руб/мес")
     else:
         print('Вакансий по таким словам не найдено')
+
+
+def get_vacancies_by_salary():
+    """
+    Метод выводит в консоль названия вакансий, заработная плата по которым находится в заданном диапазоне.
+    """
+    while True:
+        try:
+            salary_from = int(input('Введите заработную плату от: '))
+            salary_to = int(input('Введите заработную плату до: '))
+            if salary_to < salary_from:
+                print(f"Ошибка: заработная плата не может быть от {salary_from} до {salary_to}")
+            else:
+                break
+        except ValueError:
+            print("Ошибка: введите целое число.")
+    vacancies = Vacancy.from_json()
+    filtered = VacancyAgent.get_vacancies_by_salary(vacancies, salary_from, salary_to)
+    if len(filtered) > 0:
+        for title, pay in filtered:
+            print(f"{title}, зарплата: {pay} руб/мес")
+    else:
+        print('Вакансий по такому диапазону зарплаты не найдено')
