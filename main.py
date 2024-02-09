@@ -106,3 +106,15 @@ def get_vacancies_by_salary():
             print(f"{title}, зарплата: {pay} руб/мес")
     else:
         print('Вакансий по такому диапазону зарплаты не найдено')
+
+
+def sort_vacancies_by_salary():
+    """
+    Метод сортирует вакансии по заработной плате в порядке убывания и сохраняет их в файл 'vacancies.json'.
+    """
+    vacancies = Vacancy.from_json()
+    vacancies = sorted(vacancies, key=lambda x: int(x.pay), reverse=True)
+    JsonAgent.clear_json()
+    for vacancy in vacancies:
+        JsonAgent.add_vacancy(vacancy)
+    print('Файл отсортирован')
