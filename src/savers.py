@@ -89,3 +89,19 @@ class JsonAgent:
             return True
         else:
             return False
+
+    @staticmethod
+    def show_vacancies_title():
+        """
+        Метод выводит в консоль названия всех вакансий, сохраненных в файле vacancies.json.
+        """
+        try:
+            with open(FILE, 'r', encoding='utf-8') as f:
+                vacancies = json.load(f)
+            if not vacancies:
+                print("Файл с вакансиями пуст.")
+            else:
+                for vacancy in vacancies:
+                    print(vacancy['title'])
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("Произошла ошибка при загрузке вакансий.")
