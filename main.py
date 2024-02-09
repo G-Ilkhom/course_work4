@@ -36,3 +36,21 @@ def load_vacancies_to_json():
         if JsonAgent.add_vacancy(vacancy):
             counter += 1
     print(f'Добавлено {counter} вакансий')
+
+
+def show_vacancies_by_title():
+    """
+     Метод выводит в консоль названия всех вакансий, сохраненных в файле 'vacancies.json'.
+    """
+    JsonAgent.show_vacancies_title()
+
+
+def delete_vacancy_by_title():
+    """
+    Метод удаляет вакансию из файла 'vacancies.json' по названию вакансии.
+    """
+    title = input('Введите название вакансии для удаления: ')
+    if JsonAgent.delete_vacancy_by_title(title):
+        print(f'Вакансия {title} удалена')
+    else:
+        print(f'Вакансия {title} не найдена')
