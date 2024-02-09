@@ -141,3 +141,17 @@ class VacancyAgent:
                     vacancies_list.append((vacancy.title, vacancy.pay))
                     break
         return vacancies_list
+
+    @staticmethod
+    def get_vacancies_by_salary(vacancies: list, salary_from, salary_to):
+        """
+        Метод, который возвращает названия вакансий и зарплату по заданному диапазону заработной платы
+        """
+        vacancies_list = []
+        for vacancy in vacancies:
+            try:
+                if salary_from <= vacancy.pay <= salary_to:
+                    vacancies_list.append((vacancy.title, vacancy.pay))
+            except:
+                pass
+        return vacancies_list
