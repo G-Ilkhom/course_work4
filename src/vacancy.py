@@ -19,3 +19,16 @@ class Vacancy:
         self.city = city
         self.employer = employer
         self.requirement = requirement
+
+    def to_dict(self):
+        """
+        Метод возвращает информацию о вакансии в виде словаря
+        """
+        return {
+            'title': self.title,
+            'url': self.url,
+            'pay': self.pay,
+            'city': self.city,
+            'employer': self.employer,
+            'requirement': self.requirement,
+        }
