@@ -40,3 +40,16 @@ class Vacancy:
         """
         return cls(params['title'], params['url'], params['pay'], params['city'], params['employer'],
                    params['requirement'])
+
+    @classmethod
+    def from_json(cls):
+        """
+        Классовый метод, который создает список объектов вакансий на основе информации из json файла.
+        """
+        with open(FILE, 'r', encoding='utf-8') as f:
+            vacancies = json.load(f)
+        vacancy_list = []
+        for vacancy in vacancies:
+            tmp = Vacancy.from_dict(vacancy)
+            vacancy_list.append(tmp)
+        return vacancy_list
