@@ -53,3 +53,44 @@ class Vacancy:
             tmp = Vacancy.from_dict(vacancy)
             vacancy_list.append(tmp)
         return vacancy_list
+
+    def show_info(self):
+        """
+        Метод, который выводит в консоль информацию о вакансии.
+        """
+        print(self.title)
+        print(self.url)
+        print(self.pay)
+        print(self.city)
+        print(self.employer)
+        print(self.requirement)
+
+    def __repr__(self) -> str:
+        """
+        Метод для представления объекта вакансии в виде строки.
+        """
+        return f"{self.__class__.__name__}\n({self.title}\n{self.pay}\n{self.url}\n{self.city}\n{self.employer}\n{self.requirement})"
+
+    def __eq__(self, other):
+        """
+        Метод для сравнения двух вакансий по заработной плате (равенство).
+        """
+        return self.pay == other.pay
+
+    def __ne__(self, other):
+        """
+        Метод для сравнения двух вакансий по заработной плате (неравенство).
+        """
+        return self.pay != other.pay
+
+    def __lt__(self, other):
+        """
+        Метод для сравнения двух вакансий по заработной плате (меньше).
+        """
+        return self.pay < other.pay
+
+    def __gt__(self, other):
+        """
+        Метод для сравнения двух вакансий по заработной плате (больше).
+        """
+        return self.pay > other.pay
