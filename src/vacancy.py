@@ -32,3 +32,11 @@ class Vacancy:
             'employer': self.employer,
             'requirement': self.requirement,
         }
+
+    @classmethod
+    def from_dict(cls, params):
+        """
+        Классовый метод, который создает объект вакансии на основе словаря.
+        """
+        return cls(params['title'], params['url'], params['pay'], params['city'], params['employer'],
+                   params['requirement'])
