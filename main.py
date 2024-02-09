@@ -118,3 +118,33 @@ def sort_vacancies_by_salary():
     for vacancy in vacancies:
         JsonAgent.add_vacancy(vacancy)
     print('Файл отсортирован')
+
+
+def show_top_n():
+    """
+    Метод выводит в консоль названия первых 'n' вакансий из файла 'vacancies.json'.
+    """
+    try:
+        n = int(input('Введите количество вакансий для просмотра: '))
+    except:
+        print('Число введено некорректно')
+        exit()
+    vacancies = Vacancy.from_json()
+    counter = 0
+    if n > len(vacancies):
+        n = len(vacancies)
+    while counter < n:
+        print(f"{vacancies[counter].title}, зарплата: {vacancies[counter].pay} руб/мес")
+        counter += 1
+
+
+if __name__ == "__main__":
+    clear_json()
+    load_vacancies_to_json()
+    show_vacancies_by_title()
+    delete_vacancy_by_title()
+    show_info_by_title()
+    get_vacancies_by_k_words()
+    get_vacancies_by_salary()
+    sort_vacancies_by_salary()
+    show_top_n()
