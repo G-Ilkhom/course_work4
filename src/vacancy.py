@@ -94,3 +94,30 @@ class Vacancy:
         Метод для сравнения двух вакансий по заработной плате (больше).
         """
         return self.pay > other.pay
+
+
+class VacancyAgent:
+    """Класс для обработки информации о вакансиях."""
+
+    @staticmethod
+    def pars_hh_ru(vacancies):
+        """
+        Метод, который получает на вход словарь из hh.ru и возвращает массив Vacancy
+        """
+        vacancies_list = []
+        url_hh_v = 'https://hh.ru/vacancy/'
+        for vacancy in vacancies:
+            if vacancy['salary'] is not None:
+                if vacancy['salary']['from'] is not None:
+                    tmp = Vacancy(vacancy['name'], f'{url_hh_v}{vacancy["id"]}', vacancy['salary']['from'],
+                                  vacancy['area']['name'], vacancy['employer']['name'],
+                                  vacancy['snippet']['requirement'])
+                else:
+                    tmp = Vacancy(vacancy['name'], f'{url_hh_v}{vacancy["id"]}', vacancy['salary']['to'],
+                                  vacancy['area']['name'], vacancy['employer']['name'],
+                                  vacancy['snippet']['requirement'])
+            else:
+                tmp = Vacancy(vacancy['name'], f'{url_hh_v}{vacancy["id"]}', "0",
+                              vacancy['area']['name'], vacancy['employer']['name'], vacancy['snippet']['requirement'])
+            vacancies_list.append(tmp)
+        return vacancies_list
