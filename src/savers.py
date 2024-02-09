@@ -62,3 +62,30 @@ class JsonAgent:
         else:
             print("Произошла ошибка при добавлении вакансии")
             return False
+
+    @staticmethod
+    def delete_vacancy_by_title(title):
+        """
+        Метод удаляет вакансию из файла json по её названию.
+        Возвращает True, если вакансия найдена и удалена, иначе False.
+        """
+
+        try:
+            with open(FILE, 'r', encoding='utf-8') as f:
+                vacancies = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("Произошла ошибка при загрузке вакансий.")
+            return False
+
+        f = False
+        for vacancy in vacancies:
+            if vacancy['title'] == title:
+                vacancies.remove(vacancy)
+                f = True
+                break
+        if f:
+            with open(FILE, 'w', encoding='utf-8') as f:
+                json.dump(vacancies, f, ensure_ascii=False)
+            return True
+        else:
+            return False
