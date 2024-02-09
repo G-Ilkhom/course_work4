@@ -121,3 +121,23 @@ class VacancyAgent:
                               vacancy['area']['name'], vacancy['employer']['name'], vacancy['snippet']['requirement'])
             vacancies_list.append(tmp)
         return vacancies_list
+
+    @staticmethod
+    def get_vacancies_by_keywords(vacancies: list, key_words=None):
+        """
+        Метод фильтрует список вакансий по заданным ключевым словам и возвращает список названий подходящих вакансий.
+        """
+        if key_words is None:
+            key_words = []
+        vacancies_list = []
+        for vacancy in vacancies:
+            title = [x.lower() for x in vacancy.title.split()]
+            try:
+                requirements = [x.lower() for x in vacancy.requirement.split()]
+            except:
+                requirements = []
+            for key_word in key_words:
+                if key_word.lower() in title or key_word.lower() in requirements:
+                    vacancies_list.append((vacancy.title, vacancy.pay))
+                    break
+        return vacancies_list
