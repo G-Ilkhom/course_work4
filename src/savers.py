@@ -113,3 +113,15 @@ class JsonAgent:
         """
         with open(FILE, 'w', encoding='utf-8') as f:
             json.dump([], f, ensure_ascii=False)
+
+    @staticmethod
+    def show_info_by_title(title):
+        """
+        Метод выводит в консоль информацию о вакансии, найденной по названию.
+        """
+        with open(FILE, 'r', encoding='utf-8') as f:
+            vacancies = Vacancy.from_json()
+        for vacancy in vacancies:
+            if vacancy.title == title:
+                vacancy.show_info()
+                break
