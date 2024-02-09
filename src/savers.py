@@ -30,3 +30,35 @@ class JsonAgent:
                 return False  # Вакансия уже существует, не добавляем ее.
 
         return True  # Вакансии с такими данными нет, можно добавить.
+
+    @staticmethod
+    def add_vacancy(vacancy: Vacancy):
+        """
+        Метод добавляет вакансию в файл json.
+        Возвращает True, если вакансия была успешно добавлена, и False в противном случае.
+        """
+
+        if not os.path.exists(FILE):
+            with open(FILE, 'w', encoding='utf-8') as f:
+                json.dump([], f)
+                print("Файл vacancies.json был создан.")
+
+        # проверка корректности файла vacancies.json
+        if JsonAgent.is_vacancy_present(vacancy):
+            with open(FILE, 'r', encoding='utf-8') as f:
+                try:
+                    vacancies = json.load(f)
+                except json.JSONDecodeError:
+                    print("Файл vacancies.json поврежден. Создан новый файл.")
+                    with open(FILE, 'w', encoding='utf-8') as new_f:
+                        json.dump([], new_f)
+                    vacancies = []
+
+            vacancy_dict = vacancy.to_dict()  # преобразование вакансии в словарь
+            vacancies.append(vacancy_dict)  # добавление вакансии в файл
+            with open(FILE, 'w', encoding='utf-8') as f:
+                json.dump(vacancies, f, ensure_ascii=False, indent=4)
+            return True
+        else:
+            print("Произошла ошибка при добавлении вакансии")
+            return False
