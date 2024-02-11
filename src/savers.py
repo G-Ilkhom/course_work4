@@ -1,11 +1,36 @@
 import json
 import os
 from src.vacancy import Vacancy
+from abc import ABC, abstractmethod
 
 FILE = 'vacancies.json'
 
 
-class JsonAgent:
+class FileManager(ABC):
+    """Класс для работы с файлом"""
+
+    @abstractmethod
+    def show_info_by_title(self, title):
+        """Метод выводит информацию о вакансии, найденной по названию"""
+        pass
+
+    @abstractmethod
+    def add_vacancy(self, vacancies):
+        """Метод добавляет вакансию в файл json"""
+        pass
+
+    @abstractmethod
+    def delete_vacancy_by_title(self, vacancies):
+        """Метод удаляет вакансию из файла json по её названию"""
+        pass
+
+    @abstractmethod
+    def show_vacancies_title(self):
+        """Метод выводит в консоль названия всех вакансий, сохраненных в файле vacancies.json"""
+        pass
+
+
+class JsonAgent(FileManager):
     """
     Класс для работы с данными json файла: 'vacancies.json'.
     """
@@ -31,7 +56,6 @@ class JsonAgent:
 
         return True  # Вакансии с такими данными нет, можно добавить.
 
-    @staticmethod
     def add_vacancy(vacancy: Vacancy):
         """
         Метод добавляет вакансию в файл json.
@@ -63,7 +87,6 @@ class JsonAgent:
             print("Произошла ошибка при добавлении вакансии")
             return False
 
-    @staticmethod
     def delete_vacancy_by_title(title):
         """
         Метод удаляет вакансию из файла json по её названию.
@@ -90,7 +113,6 @@ class JsonAgent:
         else:
             return False
 
-    @staticmethod
     def show_vacancies_title():
         """
         Метод выводит в консоль названия всех вакансий, сохраненных в файле vacancies.json.
@@ -114,7 +136,6 @@ class JsonAgent:
         with open(FILE, 'w', encoding='utf-8') as f:
             json.dump([], f, ensure_ascii=False)
 
-    @staticmethod
     def show_info_by_title(title):
         """
         Метод выводит в консоль информацию о вакансии, найденной по названию.

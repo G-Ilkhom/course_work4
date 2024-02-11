@@ -29,7 +29,10 @@ def load_vacancies_to_json():
 
     hh_api = HeadHunterAPI(hh_vacancies_count)
 
-    hh_vacancies = VacancyAgent.pars_hh_ru(hh_api.get_vacancies(search_words))
+    try:
+        hh_vacancies = VacancyAgent.pars_hh_ru(hh_api.get_vacancies(search_words))
+    except Exception as e:
+        print(f"Произошла ошибка при получении вакансий: {e}")
 
     counter = 0
     for vacancy in hh_vacancies:
